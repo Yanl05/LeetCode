@@ -6,7 +6,7 @@ class Solution:
         :rtype: List[List[int]]
         """
         candidates = list(set(candidates))  # set 生成无序不重复元素集
-        sorted(candidates)  # 原地排序
+        sorted(candidates)  # 排序，返回一个新的list
         self.result = []
         start = 0
         self.backtrack(candidates, target, start, [])
