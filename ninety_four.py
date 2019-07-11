@@ -49,7 +49,7 @@ def createTree(nodelist):
             j += 1
             if j == len(nodelist):
                 return head
-            node.right = TreeNode(nodelist[j] if nodelist[j] != None else None)
+            node.right = TreeNode(nodelist[j]) if nodelist[j] != None else None
             Nodes.append(node.right)
             j += 1
             if j == len(nodelist):
