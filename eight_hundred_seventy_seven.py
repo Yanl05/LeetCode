@@ -44,14 +44,37 @@ class Solution(object):
         :type piles: List[int]
         :rtype: bool
         """
-        dp = [[0 for _ in range(len(piles))] for _ in range(len(piles))]
+        # 一维dp
+        # dp = [[0 for _ in range(len(piles))] for _ in range(len(piles))]
+        # for i in range(len(piles)):
+        #     dp[i][i] = piles[i]
+        # for j in range(1, len(piles)):
+        #     for i in range(j-1, -1, -1):
+        #         dp[i][j]=max(piles[i]-dp[i+1][j], piles[j]-dp[i][j-1])
+        # return dp[0][-1]>0
+
+        # 二维dp
+        # 初始化dp
+        dp = [[[0, 0] for _ in range(len(piles))] for _ in range(len(piles))]
         for i in range(len(piles)):
-            dp[i][i] = piles[i]
-        for j in range(1, len(piles)):
-            for i in range(j-1, -1, -1):
-                dp[i][j]=max(piles[i]-dp[i+1][j], piles[j]-dp[i][j-1])
-        return dp[0][-1]>0
-
-
+            dp[i][i] = [piles[i], 0]
+        # print(dp)
+        # 使用状态转移方程更新dp
+        # 斜着更新
+        for l in range(2, len(piles)+1):
+            for i in range(len(piles)-l+1):
+                j = l + i - 1
+                # print(i, j)
+                left = piles[i] + dp[i+1][j][1]
+                right = piles[j] + dp[i][j - 1][1]
+                if left > right:
+                    # 选左边的
+                    dp[i][j][0] = left
+                    dp[i][j][1] = dp[i+1][j][0]
+                else:
+                    # 选右边的
+                    dp[i][j][0] = right
+                    dp[i][j][1] = dp[i][j-1][0]
+        return dp[0][-1][0] - dp[0][-1][1]
 
 print(Solution().stoneGame([3,7,2,3]))
