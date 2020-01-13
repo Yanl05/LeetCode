@@ -1,3 +1,12 @@
+"""
+使用两个数组来存储left   right 的最大柱子高度
+用公式
+ min(left_max[i], right_max[i]) - height[i]
+ 来计算当前位置的最大储水两
+
+
+
+"""
 class Solution:
     def trap(self, height):
         """
@@ -20,3 +29,6 @@ class Solution:
             tmp = min(left_max[i], right_max[i]) - height[i]
             ret += tmp
         return ret
+
+
+print(Solution().trap([0,1,0,2,1,0,1,3,2,1,2,1]))
